@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import CreateBlogPage from "./pages/CreateBlogPage";
 import UpdateBlogPage from "./pages/UpdateBlogPage";
 import Navbar from "./components/Navbar";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/updateBlog/:id" element={<UpdateBlogPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

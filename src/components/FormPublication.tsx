@@ -1,18 +1,22 @@
 import { NavLink } from "react-router-dom";
-import type { PublicationType } from "../types/PublicationType";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { FormPublicationType } from "../types/FormPublicationType";
 
-type formProps = {
-  title: string;
-  greenAction: string;
-  onSubmit: (data: PublicationType) => Promise<void>;
-  initialData: PublicationType;
-};
-
-const FormPublication = ({title, greenAction, onSubmit, initialData}: formProps) => {
+const FormPublication = ({
+  title,
+  greenAction,
+  onSubmit,
+  initialData,
+}: FormPublicationType) => {
   const [data, setData] = useState(initialData);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  useEffect(() => {
+    setData(initialData);
+  }, [initialData]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

@@ -1,5 +1,5 @@
 export type PublicationType = {
-  id ?: number,
+  _id : number,
   author: string;
   description: string;
   createdAt: string

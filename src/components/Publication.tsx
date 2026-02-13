@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { deletePublication } from "../services/publicationService";
 import { useNavigate } from "react-router-dom";
 
-const Publication = ({ id, author, description, createdAt, onDelete }: PublicationType) => {
+const Publication = ({ _id, author, description, createdAt, onDelete }: PublicationType) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
 
@@ -23,7 +23,7 @@ const Publication = ({ id, author, description, createdAt, onDelete }: Publicati
       if (res.status !== 200) throw new Error(`Error al eliminar la publicacion ${id}`);
 
       toast.success("¡Nota eliminada con éxito", {
-        position: "bottom-center",
+        position: "bottom-left",
         autoClose: 3000,
         theme: "colored",
       });
@@ -34,7 +34,7 @@ const Publication = ({ id, author, description, createdAt, onDelete }: Publicati
 
       console.error(error);
       toast.error("Error al eliminar la nota", {
-        position: "bottom-right",
+        position: "bottom-left",
         autoClose: 3000,
         theme: "colored",
       });
@@ -48,8 +48,8 @@ const Publication = ({ id, author, description, createdAt, onDelete }: Publicati
           {author}
         </h2>
         <div className="flex gap-4">
-          <SquarePen className="text-gray-600 cursor-pointer" onClick={() => navigate(`/updateBlog/${id}`)} />
-          <Trash2 className="text-red-500 cursor-pointer" onClick={() => deletePubli} />
+          <SquarePen className="text-gray-600 cursor-pointer" onClick={() => navigate(`/updateBlog/${_id}`)} />
+          <Trash2 className="text-red-500 cursor-pointer" onClick={() => deletePubli(_id)} />
         </div>
       </div>
 
