@@ -1,20 +1,44 @@
 import { Trash2, SquarePen } from "lucide-react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { type PublicationType } from "../types/PublicationType";
+import { toast } from "react-toastify";
+import { deletePublication } from "../services/publicationService";
+import { useNavigate } from "react-router-dom";
 
-type PubicationProds = {
-  author: string;
-  description: string;
-  date: string;
-};
-
-const Publication = ({ author, description, date }: PubicationProds) => {
+const Publication = ({ id, author, description, createdAt, onDelete }: PublicationType) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
+
+  const navigate = useNavigate()
 
   const handleLike = () => {
     liked ? setLikes(likes - 1) : setLikes(likes + 1);
     setLiked(!liked);
+  };
+
+  const deletePubli = async (id: number) => {
+    try {
+      const res = await deletePublication(id);
+
+      if (res.status !== 200) throw new Error(`Error al eliminar la publicacion ${id}`);
+
+      toast.success("¡Nota eliminada con éxito", {
+        position: "bottom-center",
+        autoClose: 3000,
+        theme: "colored",
+      });
+
+      if(onDelete) onDelete(id)
+
+    } catch (error: any) {
+
+      console.error(error);
+      toast.error("Error al eliminar la nota", {
+        position: "bottom-right",
+        autoClose: 3000,
+        theme: "colored",
+      });
+    }
   };
 
   return (
@@ -24,10 +48,8 @@ const Publication = ({ author, description, date }: PubicationProds) => {
           {author}
         </h2>
         <div className="flex gap-4">
-          <NavLink to="/updateBlog">
-            <SquarePen className="text-gray-600 cursor-pointer" />
-          </NavLink>
-          <Trash2 className="text-red-500 cursor-pointer" />
+          <SquarePen className="text-gray-600 cursor-pointer" onClick={() => navigate(`/updateBlog/${id}`)} />
+          <Trash2 className="text-red-500 cursor-pointer" onClick={() => deletePubli} />
         </div>
       </div>
 
@@ -36,10 +58,13 @@ const Publication = ({ author, description, date }: PubicationProds) => {
       </p>
 
       <div className="flex justify-between mt-4">
-        <button onClick={handleLike} className="bg-pink-300 rounded-full px-2 hover:bg-red-500  cursor-pointer">
+        <button
+          onClick={handleLike}
+          className="bg-pink-300 rounded-full px-2 hover:bg-red-500  cursor-pointer"
+        >
           {likes} ❤️
         </button>
-        <p>{date}</p>
+        <p>{createdAt}</p>
       </div>
     </div>
   );

@@ -1,41 +1,67 @@
 import { NavLink } from "react-router-dom";
+import type { PublicationType } from "../types/PublicationType";
+import { useState } from "react";
 
 type formProps = {
-  title: string
-  greenAction: string
-}
+  title: string;
+  greenAction: string;
+  onSubmit: (data: PublicationType) => Promise<void>;
+  initialData: PublicationType;
+};
 
-const FormPublication = ({title, greenAction} : formProps) => {
+const FormPublication = ({title, greenAction, onSubmit, initialData}: formProps) => {
+  const [data, setData] = useState(initialData);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit(data);
+  };
+
   return (
     <div className="bg-amber-200 p-3 rounded-tr-lg border border-amber-600">
       <h1 className="text-center mb-3 font-pacifico"> {title}</h1>
-      <input
-        className="block w-full border h-10"
-        placeholder=" ¿Quien sos?"
-        type="text"
-        name="author"
-        id="author"
-        required
-      />
 
-      <form>
+      <form onSubmit={handleSubmit}>
+        <input
+          className="block w-full border h-10"
+          placeholder=" ¿Quien sos?"
+          type="text"
+          name="author"
+          id="author"
+          value={data.author}
+          onChange={handleChange}
+          required
+        />
         <textarea
           className="block w-full mt-4 border resize-none h-60"
           placeholder=" ¿En que estas pensando?"
           typeof="text"
           name="description"
           id="description"
+          value={data.description}
+          onChange={handleChange}
           required
         />
+
+        <div className="flex justify-between">
+          <NavLink
+            to="/"
+            className="bg-red-400 rounded-full p-2 mt-4 font-bold cursor-pointer hover:bg-red-600 hover:text-white"
+          >
+            Regresar
+          </NavLink>
+          <button className="bg-green-300 rounded-full p-2 mt-4 font-bold cursor-pointer hover:bg-green-500 hover:text-white">
+            {greenAction}
+          </button>
+        </div>
       </form>
-      <div className="flex justify-between">
-        <NavLink to="/" className="bg-red-400 rounded-full p-2 mt-4 font-bold cursor-pointer hover:bg-red-600 hover:text-white">
-          Regresar
-        </NavLink>
-        <button className="bg-green-300 rounded-full p-2 mt-4 font-bold cursor-pointer hover:bg-green-500 hover:text-white">
-          {greenAction}
-        </button>
-      </div>
     </div>
   );
 };

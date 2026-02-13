@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/createBlog" element={<CreateBlogPage />} />
-        <Route path="/updateBlog" element={<UpdateBlogPage />} />
+        <Route path="/updateBlog/:id" element={<UpdateBlogPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
     </div>
