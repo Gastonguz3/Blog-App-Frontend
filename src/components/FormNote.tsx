@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import type { FormPublicationType } from "../types/FormPublicationType";
+import type { FormNoteType } from "../types/FormNoteType";
 
-const FormPublication = ({
+const FormNote = ({
   title,
   greenAction,
   onSubmit,
   initialData,
-}: FormPublicationType) => {
+}: FormNoteType) => {
   const [data, setData] = useState(initialData);
 
   useEffect(() => {
@@ -70,4 +70,4 @@ const FormPublication = ({
   );
 };
 
-export default FormPublication;
+export default FormNote;

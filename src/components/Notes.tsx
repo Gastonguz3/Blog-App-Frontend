@@ -1,15 +1,15 @@
 import { Trash2, SquarePen } from "lucide-react";
 import { useState } from "react";
-import { type PublicationType } from "../types/PublicationType";
+import { type NoteType } from "../types/NoteType";
 import { toast } from "react-toastify";
-import { deletePublication } from "../services/publicationService";
+import { deleteNote } from "../services/noteService";
 import { useNavigate } from "react-router-dom";
 
-const Publication = ({ _id, author, description, createdAt, onDelete }: PublicationType) => {
+const Notes = ({ _id, author, description, createdAt, onDelete }: NoteType) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLike = () => {
     liked ? setLikes(likes - 1) : setLikes(likes + 1);
@@ -18,9 +18,10 @@ const Publication = ({ _id, author, description, createdAt, onDelete }: Publicat
 
   const deletePubli = async (id: number) => {
     try {
-      const res = await deletePublication(id);
+      const res = await deleteNote(id);
 
-      if (res.status !== 200) throw new Error(`Error al eliminar la publicacion ${id}`);
+      if (res.status !== 200)
+        throw new Error(`Error al eliminar la publicacion ${id}`);
 
       toast.success("¡Nota eliminada con éxito", {
         position: "bottom-left",
@@ -28,10 +29,8 @@ const Publication = ({ _id, author, description, createdAt, onDelete }: Publicat
         theme: "colored",
       });
 
-      if(onDelete) onDelete(id)
-
+      if (onDelete) onDelete(id);
     } catch (error: any) {
-
       console.error(error);
       toast.error("Error al eliminar la nota", {
         position: "bottom-left",
@@ -48,8 +47,14 @@ const Publication = ({ _id, author, description, createdAt, onDelete }: Publicat
           {author}
         </h2>
         <div className="flex gap-4">
-          <SquarePen className="text-gray-600 cursor-pointer" onClick={() => navigate(`/updateBlog/${_id}`)} />
-          <Trash2 className="text-red-500 cursor-pointer" onClick={() => deletePubli(_id)} />
+          <SquarePen
+            className="text-gray-600 cursor-pointer"
+            onClick={() => navigate(`/updateBlog/${_id}`)}
+          />
+          <Trash2
+            className="text-red-500 cursor-pointer"
+            onClick={() => deletePubli(_id)}
+          />
         </div>
       </div>
 
@@ -70,4 +75,4 @@ const Publication = ({ _id, author, description, createdAt, onDelete }: Publicat
   );
 };
 
-export default Publication;
+export default Notes;

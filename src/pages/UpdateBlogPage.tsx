@@ -1,12 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import FormPublication from "../components/FormPublication";
+import FormNote from "../components/FormNote";
 import { useEffect, useState } from "react";
-import {
-  getPublicationById,
-  updatePublication,
-} from "../services/publicationService";
+import { getNoteById, updateNote } from "../services/noteService";
 import { toast } from "react-toastify";
-import type { PublicationDTO } from "../types/PublicationDTO";
+import type { NoteDTO } from "../types/NoteDTO";
 
 const UpdateBlogPage = () => {
   const { id } = useParams();
@@ -18,13 +15,13 @@ const UpdateBlogPage = () => {
   });
 
   useEffect(() => {
-    const fetchPubli = async () => {
-      if (!id){
-        console.error("Error al devolver la informacion a actualizar")
+    const fetchNote = async () => {
+      if (!id) {
+        console.error("Error al devolver la informacion a actualizar");
         return;
       }
       try {
-        const response = await getPublicationById(id);
+        const response = await getNoteById(id);
 
         setInitialData({
           author: response.data.author,
@@ -35,12 +32,12 @@ const UpdateBlogPage = () => {
       }
     };
 
-    fetchPubli();
+    fetchNote();
   }, [id]);
 
-  const handlePut = async (publi: PublicationDTO) => {
+  const handlePut = async (note: NoteDTO) => {
     if (!id) throw new Error("El id no fue encontrado");
-    const res = await updatePublication(id, publi);
+    const res = await updateNote(id, note);
     if (res.status === 200) {
       toast.success("Publicacion actualizada con éxito!", {
         position: "bottom-left",
@@ -60,7 +57,7 @@ const UpdateBlogPage = () => {
   return (
     <div className="flex justify-center">
       <div className="w-full max-w-200  py-20">
-        <FormPublication
+        <FormNote
           title="ACTUALIZAR NOTA"
           greenAction="Actualizar"
           onSubmit={handlePut}

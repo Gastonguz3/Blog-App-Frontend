@@ -1,4 +1,4 @@
-export type PublicationDTO = {
+export type NoteDTO = {
   author: string;
   description: string;
 };

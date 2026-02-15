@@ -1,4 +1,4 @@
-export type PublicationType = {
+export type NoteType = {
   _id : number,
   author: string;
   description: string;
