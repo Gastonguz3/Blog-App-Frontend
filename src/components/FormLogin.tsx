@@ -7,7 +7,7 @@ const FormLogin = () => {
 
   return (
     <div className="flex-1 p-8 shadow-xl sm:p-12 ls:p-16 flex flex-col justify-center">
-      <h2 className="text-3xl font-bold font-pacifico mb-8 text-center">
+      <h2 className="text-5xl font-bold font-pacifico mb-8 text-center">
         Bienvenido al Blog de Notas!
       </h2>
       <form className="space-y-5">
@@ -71,7 +71,7 @@ const FormLogin = () => {
           Ingresar
         </button>
 
-        <NavLink to="/">
+        <NavLink to="/notes">
           <button className="w-full bg-yellow-400 rounded-full py-3 font-semibold hover:bg-amber-500 hover:text-white cursor-pointer transition duration-300  ">
           Ingresar sin iniciar sesion
           </button>
@@ -99,7 +99,7 @@ const FormLogin = () => {
         {/* Link para registrarse */}
         <div className="text-sm text-gray-600 text-center ">
           No tenes cuenta?{" "}
-          <a href="#" className="text-orange-400 font-semibold hover:underline">Registrate</a>
+          <NavLink to="/register" className="text-orange-400 font-semibold hover:underline">Registrate</NavLink>
         </div>
       </form>
     </div>

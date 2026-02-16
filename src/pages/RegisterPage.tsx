@@ -1,13 +1,13 @@
-import FormLogin from "../components/FormLogin";
+import FormRegister from "../components/FormRegister"
 
-const HomePage = () => {
+const RegisterPage = () => {
   return (
     <div className="  flex justify-center items-center p-10 ">
       <div className="bg-white flex w-full max-w-6xl overflow-hidden">
-        <FormLogin/>
+        <FormRegister/>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default RegisterPage

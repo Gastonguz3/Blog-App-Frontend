@@ -7,14 +7,16 @@ const Navbar = () => {
         <NavLink to="/" className="font-bold text-3xl font-pacifico">
           Blog App
         </NavLink>
+        {/* 
         <div className="flex gap-4 ">
-          <button className="bg-yellow-400 px-2 py-2 rounded-full cursor-pointer hover:bg-amber-500 hover:text-white transition duration-300 ">
-            Ingresar
-          </button>
+          <NavLink to="/" className="bg-yellow-400 px-2 py-2 rounded-full cursor-pointer hover:bg-amber-500 hover:text-white transition duration-300 ">
+            Iniciar Sesion
+          </NavLink >
           <button className="bg-yellow-400 px-2 py-2 rounded-full cursor-pointer hover:bg-amber-500 hover:text-white transition duration-300 ">
             Registrarse
           </button>
         </div>
+          */}
       </div>
     </nav>
   );
