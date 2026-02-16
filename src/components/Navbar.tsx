@@ -8,10 +8,10 @@ const Navbar = () => {
           Blog App
         </NavLink>
         <div className="flex gap-4 ">
-          <button className="bg-yellow-400 px-2 py-2 rounded-full cursor-pointer hover:bg-amber-500 hover:text-white">
+          <button className="bg-yellow-400 px-2 py-2 rounded-full cursor-pointer hover:bg-amber-500 hover:text-white transition duration-300 ">
             Ingresar
           </button>
-          <button className="bg-yellow-400 px-2 py-2 rounded-full cursor-pointer hover:bg-amber-500 hover:text-white">
+          <button className="bg-yellow-400 px-2 py-2 rounded-full cursor-pointer hover:bg-amber-500 hover:text-white transition duration-300 ">
             Registrarse
           </button>
         </div>
