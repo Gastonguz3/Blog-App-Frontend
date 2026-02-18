@@ -2,7 +2,7 @@ import axios from "axios";
 import type { NoteType } from "../types/NoteType";
 import type { NoteDTO } from "../types/NoteDTO";
 
-const API_URL = "http://localhost:3000/api/publication";
+const API_URL = "http://localhost:3000/api/note";
 
 export const getNoteById = (id: string) =>
   axios.get<NoteType>(`${API_URL}/${id}`);

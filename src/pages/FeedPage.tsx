@@ -38,14 +38,6 @@ const FeedPage = () => {
               onDelete={handleDelete}
             />
           ))}
-          {/*Luego borrar */}
-          <Notes
-              _id={1}
-              author={"Gaston"}
-              description={"Hola a todos"}
-              createdAt={"14 de feb de 2026"}
-              onDelete={handleDelete}
-            />
         </div>
       </div>
       <NavLink

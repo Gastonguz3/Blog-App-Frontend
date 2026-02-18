@@ -56,7 +56,7 @@ const FormNote = ({
 
         <div className="flex justify-between">
           <NavLink
-            to="/"
+            to="/notes"
             className="bg-red-400 rounded-full p-2 mt-4 font-bold cursor-pointer hover:bg-red-600 hover:text-white"
           >
             Regresar

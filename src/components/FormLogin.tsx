@@ -10,6 +10,7 @@ const FormLogin = () => {
       <h2 className="text-5xl font-bold font-pacifico mb-8 text-center">
         Bienvenido al Blog de Notas!
       </h2>
+      
       <form className="space-y-5">
 
         {/* mail */}

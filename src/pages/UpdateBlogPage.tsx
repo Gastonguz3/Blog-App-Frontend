@@ -44,7 +44,7 @@ const UpdateBlogPage = () => {
         autoClose: 3000,
         theme: "colored",
       });
-      navigate("/");
+      navigate("/notes");
     } else {
       toast.error("Error al actualizar la publicacion", {
         position: "bottom-left",

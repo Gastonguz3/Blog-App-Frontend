@@ -18,7 +18,7 @@ const CreateBlogPage = () => {
         autoClose: 3000,
         theme: "colored",
       });
-      navigate("/");
+      navigate("/notes");
     } catch (error: any) {
       console.error(error);
       toast.error("Error al eliminar la nota", {

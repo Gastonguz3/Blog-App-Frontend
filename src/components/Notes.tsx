@@ -16,7 +16,7 @@ const Notes = ({ _id, author, description, createdAt, onDelete }: NoteType) => {
     setLiked(!liked);
   };
 
-  const deletePubli = async (id: number) => {
+  const delNote = async (id: number) => {
     try {
       const res = await deleteNote(id);
 
@@ -53,7 +53,7 @@ const Notes = ({ _id, author, description, createdAt, onDelete }: NoteType) => {
           />
           <Trash2
             className="text-red-500 cursor-pointer"
-            onClick={() => deletePubli(_id)}
+            onClick={() => delNote(_id)}
           />
         </div>
       </div>
