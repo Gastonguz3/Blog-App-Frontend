@@ -34,7 +34,7 @@ const FormNote = ({
 
       <form onSubmit={handleSubmit}>
         <input
-          className="block w-full border h-10"
+          className="block w-full border h-10 focus:outline-none p-2"
           placeholder=" ¿Quien sos?"
           type="text"
           name="author"
@@ -44,7 +44,7 @@ const FormNote = ({
           required
         />
         <textarea
-          className="block w-full mt-4 border resize-none h-60"
+          className="block w-full mt-4 border resize-none h-60 focus:outline-none p-2"
           placeholder=" ¿En que estas pensando?"
           typeof="text"
           name="description"

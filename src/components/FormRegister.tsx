@@ -1,10 +1,61 @@
 import { User, Lock, Eye, EyeOff, Mail } from "lucide-react";
+import { registerUser } from "../services/authService";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const FormRegister = () => {
 
+    const navigate = useNavigate()
+
     const [showPassword, setShowPassword] = useState(false);
+    const [name, setName] = useState("")
+    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("")
+
+    const handleSubmit = async (e: React.ChangeEvent) => {
+      e.preventDefault()
+
+      if (!email || !password || !name) {
+        toast.warning("Completa todos los campos", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "colored",
+        });
+        return;
+      }
+
+      if (password.length < 6) {
+        toast.warning("La contraseña debe tener minimo 6 caracteres", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "colored",
+        });
+        return;
+      }
+
+      try {
+        
+        const data = await registerUser({name, password, email})
+
+        localStorage.setItem("token", data.token);
+
+        toast.success("Registro exitoso!", {
+        position: "bottom-left",
+        autoClose: 3000,
+        theme: "colored",
+        });
+
+        navigate("/notes");
+        
+      } catch (error:any) {
+        toast.error("Error al registrar el usuario!", {
+          position: "bottom-left",
+          autoClose: 3000,
+          theme: "colored"
+        })
+      }
+    }
 
   return (
     <div className="flex-1 p-8 shadow-xl sm:p-12 ls:p-16 flex flex-col justify-center">
@@ -12,8 +63,8 @@ const FormRegister = () => {
         Crea tu cuenta
       </h2>
 
-      {/*Usuario*/}
-      <form className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-5">
+        {/*Usuario*/}
         <div className="">
           <label
             htmlFor="text"
@@ -29,7 +80,9 @@ const FormRegister = () => {
               type="text"
               id="user"
               className=" w-full border border-black rounded-lg px-12 py-3 focus:outline-none  focus:border-blue-500"
-              placeholder="Ingresar Usuario "
+              placeholder="Ingresar Nombre de Usuario"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               autoComplete="off"
             />
           </div>
@@ -51,8 +104,10 @@ const FormRegister = () => {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              className=" w-full border border-blacl rounded-lg px-12 py-3 focus:outline-none  focus:border-blue-500"
+              className=" w-full border border-black rounded-lg px-12 py-3 focus:outline-none  focus:border-blue-500"
               placeholder="****** "
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               autoComplete="off"
             />
             <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" onClick={() => setShowPassword(!showPassword)}>
@@ -78,14 +133,16 @@ const FormRegister = () => {
               type="email"
               id="email"
               className=" w-full border border-black rounded-lg px-12 py-3 focus:outline-none  focus:border-blue-500"
-              placeholder="Ingresar correo electronico "
+              placeholder="Ingresar correo electronico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               autoComplete="off"
             />
           </div>
         </div>
 
         {/*Boton de login */}
-        <button className="w-full mt-3 bg-yellow-400 rounded-full py-3 font-semibold hover:bg-amber-500 hover:text-white cursor-pointer transition duration-300  ">
+        <button type="submit" className="w-full mt-3 bg-yellow-400 rounded-full py-3 font-semibold hover:bg-amber-500 hover:text-white cursor-pointer transition duration-300">
           Registrarse
         </button>
 

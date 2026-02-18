@@ -1,9 +1,47 @@
 import { Mail, Lock, Eye, EyeOff, Github } from "lucide-react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { loginUser } from "../services/authService";
+import { toast } from "react-toastify";
 
 const FormLogin = () => {
+
+  const navigate = useNavigate()
+
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleSubmit = async (e: React.ChangeEvent) => {
+    e.preventDefault()
+
+    if (!email || !password) {
+        toast.warning("Completa todos los campos", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "colored",
+        });
+        return;
+      }
+
+    try {
+
+      const data = await loginUser({email, password})
+
+      //guardo el token y user
+      localStorage.setItem("token", data.token)
+      localStorage.setItem("user", JSON.stringify(data.user))
+
+      navigate("/notes")
+
+    } catch (error: any) {
+      toast.error("Error al iniciar sesion!", {
+        position: "bottom-left",
+        autoClose: 3000,
+        theme: "colored",
+      });
+    }
+  }
 
   return (
     <div className="flex-1 p-8 shadow-xl sm:p-12 ls:p-16 flex flex-col justify-center">
@@ -11,9 +49,9 @@ const FormLogin = () => {
         Bienvenido al Blog de Notas!
       </h2>
       
-      <form className="space-y-5">
+      <form className="space-y-5" onSubmit={handleSubmit}>
 
-        {/* mail */}
+        {/* email */}
         <div className="relative pt-4">
           <label
             htmlFor="email"
@@ -30,6 +68,8 @@ const FormLogin = () => {
               type="email"
               id="email"
               className=" w-full border border-gray-300 rounded-lg px-12 py-3 focus:outline-none  focus:border-blue-500"
+              value={email}
+              onChange={ (e) => setEmail(e.target.value)}
               placeholder="Ingresar correo electronico "
               autoComplete="off"
             />
@@ -53,6 +93,8 @@ const FormLogin = () => {
               type={showPassword ? "text" : "password"}
               id="password"
               className=" w-full border border-gray-300 rounded-lg px-12 py-3 focus:outline-none  focus:border-blue-500"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="****** "
               autoComplete="off"
             />
@@ -61,22 +103,15 @@ const FormLogin = () => {
             </span>
           </div>
         </div>
-
-        {/*contraseña olvidada*/}
-        <div className="text-right">
-          <a href="#" className="text-sm text-gray-500 hover:text-blue-500 font-medium">Olvidaste la contraseña?</a>
-        </div>
         
         {/*Boton de login */}
-        <button className="w-full bg-yellow-400 rounded-full py-3 font-semibold hover:bg-amber-500 hover:text-white cursor-pointer transition duration-300  ">
+        <button type="submit" className="w-full bg-yellow-400 rounded-full py-3 font-semibold hover:bg-amber-500 hover:text-white cursor-pointer transition duration-300">
           Ingresar
         </button>
 
-        <NavLink to="/notes">
-          <button className="w-full bg-yellow-400 rounded-full py-3 font-semibold hover:bg-amber-500 hover:text-white cursor-pointer transition duration-300  ">
+        <button type="button" className="w-full bg-yellow-400 rounded-full py-3 font-semibold hover:bg-amber-500 hover:text-white cursor-pointer transition duration-300" onClick={() => navigate("/notes")}>
           Ingresar sin iniciar sesion
-          </button>
-        </NavLink>
+        </button>
         
         {/* OR */}
         <div className="flex items-center my-3">

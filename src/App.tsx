@@ -4,21 +4,21 @@ import CreateBlogPage from "./pages/CreateBlogPage";
 import UpdateBlogPage from "./pages/UpdateBlogPage";
 import HomePage from "./pages/HomePage";
 import FeedPage from "./pages/FeedPage";
-import Navbar from "./components/Navbar";
+import NavbarHome from "./components/Navbar/NavbarHome";
 import { ToastContainer } from "react-toastify";
 import RegisterPage from "./pages/RegisterPage";
+import NavbarFeed from "./components/Navbar/NavbarFeed";
 
 function App() {
   return (
     <div className="bg-purple-300 min-h-screen">
-      <Navbar/>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/notes" element={<FeedPage/>}/>
-        <Route path="/createBlog" element={<CreateBlogPage />} />
-        <Route path="/updateBlog/:id" element={<UpdateBlogPage />} />
-        <Route path="*" element={<FeedPage />} />
+        <Route path="/" element={<><NavbarHome/><HomePage /></>} />
+        <Route path="/register" element={<><NavbarHome/><RegisterPage /> </>} />
+        <Route path="/notes" element={<><NavbarFeed/><FeedPage/></>}/>
+        <Route path="/createBlog" element={<><NavbarFeed/><CreateBlogPage /></>} />
+        <Route path="/updateBlog/:id" element={<><NavbarFeed/><UpdateBlogPage /></>} />
+        <Route path="*" element={<><NavbarHome/><HomePage /></>} />
       </Routes>
       <ToastContainer />
     </div>
