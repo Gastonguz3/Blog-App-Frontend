@@ -52,7 +52,7 @@ const FormNote = ({
           >
             Regresar
           </NavLink>
-          <button className="bg-green-300 rounded-full p-2 mt-4 font-bold cursor-pointer hover:bg-green-500 hover:text-white">
+          <button type="submit" className="bg-green-300 rounded-full p-2 mt-4 font-bold cursor-pointer hover:bg-green-500 hover:text-white">
             {greenAction}
           </button>
         </div>

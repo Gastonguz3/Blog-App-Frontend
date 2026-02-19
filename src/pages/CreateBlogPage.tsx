@@ -10,7 +10,7 @@ import { jwtDecode } from "jwt-decode";
 const CreateBlogPage = () => {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("Anonimo")
+  const [username, setUsername] = useState("")
 
   useEffect(()=>{
       const token = localStorage.getItem("token")
@@ -22,10 +22,7 @@ const CreateBlogPage = () => {
 
   const handleCreate = async (note: NoteDTO): Promise<void> => {
     try {
-      const res = await createNote(note);
-      if (res.status !== 201) {
-        throw new Error("Error al crear la publicacion");
-      }
+      await createNote(note);
       toast.success("¡Nota creada con éxito", {
         position: "bottom-left",
         autoClose: 3000,
@@ -33,12 +30,31 @@ const CreateBlogPage = () => {
       });
       navigate("/notes");
     } catch (error: any) {
-      console.error(error);
-      toast.error("Error al eliminar la nota", {
-        position: "bottom-left",
-        autoClose: 3000,
-        theme: "colored",
-      });
+      const status = error.response?.status;
+
+      switch (status) {
+        case 400:
+          toast.warning("Completar todos los campos", {
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+        case 403:
+          toast.error("No esta registrado", { //No autorizado
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+        default:  //500
+          toast.error("Error del servidor", {
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+      }
     }
   };
 

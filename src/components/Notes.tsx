@@ -18,10 +18,7 @@ const Notes = ({ _id, author, description, createdAt, onDelete }: NoteType) => {
 
   const delNote = async (id: number) => {
     try {
-      const res = await deleteNote(id);
-
-      if (res.status !== 200)
-        throw new Error(`Error al eliminar la publicacion ${id}`);
+      await deleteNote(id);
 
       toast.success("¡Nota eliminada con éxito", {
         position: "bottom-left",
@@ -31,12 +28,32 @@ const Notes = ({ _id, author, description, createdAt, onDelete }: NoteType) => {
 
       if (onDelete) onDelete(id);
     } catch (error: any) {
-      console.error(error);
-      toast.error("Error al eliminar la nota", {
-        position: "bottom-left",
-        autoClose: 3000,
-        theme: "colored",
-      });
+      
+      const status = error.response?.status;
+
+      switch (status) {
+        case 403:
+          toast.error("No autorizado", {
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+        case 404:
+          toast.error("Nota no encontrada", {
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+        default:  //500
+          toast.error("Error del servidor", {
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+      }
     }
   };
 

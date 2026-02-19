@@ -37,20 +37,41 @@ const UpdateBlogPage = () => {
 
   const handlePut = async (note: NoteDTO) => {
     if (!id) throw new Error("El id no fue encontrado");
-    const res = await updateNote(id, note);
-    if (res.status === 200) {
+
+    try {
+      await updateNote(id, note);
       toast.success("Publicacion actualizada con éxito!", {
         position: "bottom-left",
         autoClose: 3000,
         theme: "colored",
       });
       navigate("/notes");
-    } else {
-      toast.error("Error al actualizar la publicacion", {
-        position: "bottom-left",
-        autoClose: 3000,
-        theme: "colored",
-      });
+    } catch (error: any) {
+      const status = error.response?.status;
+
+      switch (status) {
+        case 403:
+          toast.error("No esta registrado", {   //No esta autorizado
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+        case 404:
+          toast.error("Nota no encontrada", {
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+        default:  //500
+          toast.error("Error del servidor", {
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+      }
     }
   };
 
