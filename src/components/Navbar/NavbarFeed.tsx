@@ -1,13 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-export interface DecodedToken {
-    id: string;
-    name: string;
-    email: string;
-    exp: number;
-}
+import type { DecodedToken } from "../../types/DecodedTokenType";
 
 const NavbarFeed = () => {
   const navigate = useNavigate();

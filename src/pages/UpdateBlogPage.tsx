@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import FormNote from "../components/FormNote";
+import FormNote from "../components/Form/FormNote";
 import { useEffect, useState } from "react";
 import { getNoteById, updateNote } from "../services/noteService";
 import { toast } from "react-toastify";

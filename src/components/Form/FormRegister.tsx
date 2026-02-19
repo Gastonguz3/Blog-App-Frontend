@@ -1,5 +1,5 @@
 import { User, Lock, Eye, EyeOff, Mail } from "lucide-react";
-import { registerUser } from "../services/authService";
+import { registerUser } from "../../services/authService";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";

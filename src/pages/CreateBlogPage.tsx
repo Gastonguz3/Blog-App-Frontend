@@ -1,11 +1,24 @@
 import { useNavigate } from "react-router-dom";
-import FormNote from "../components/FormNote";
+import FormNote from "../components/Form/FormNote";
 import { createNote } from "../services/noteService";
 import { toast } from "react-toastify";
 import type { NoteDTO } from "../types/NoteDTO";
+import { useEffect, useState } from "react";
+import type { DecodedToken } from "../types/DecodedTokenType";
+import { jwtDecode } from "jwt-decode";
 
 const CreateBlogPage = () => {
   const navigate = useNavigate();
+
+  const [username, setUsername] = useState("Anonimo")
+
+  useEffect(()=>{
+      const token = localStorage.getItem("token")
+      if(token){
+          const decoded : DecodedToken= jwtDecode(token)
+          setUsername(decoded.name)
+      } 
+  }, [])
 
   const handleCreate = async (note: NoteDTO): Promise<void> => {
     try {
@@ -36,7 +49,7 @@ const CreateBlogPage = () => {
           title="NUEVA NOTA"
           greenAction="Publicar"
           onSubmit={handleCreate}
-          initialData={{ author: "", description: "" }}
+          initialData={{ author: username, description: "" }}
         />
       </div>
     </div>
