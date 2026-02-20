@@ -33,7 +33,7 @@ const Notes = ({ _id, author, description, createdAt, onDelete }: NoteType) => {
 
       switch (status) {
         case 403:
-          toast.error("No autorizado", {
+          toast.error("No esta autorizado", {
             position: "bottom-left",
             autoClose: 3000,
             theme: "colored",

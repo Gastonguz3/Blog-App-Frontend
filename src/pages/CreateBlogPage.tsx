@@ -4,8 +4,6 @@ import { createNote } from "../services/noteService";
 import { toast } from "react-toastify";
 import type { NoteDTO } from "../types/NoteDTO";
 import { useEffect, useState } from "react";
-import type { DecodedToken } from "../types/DecodedTokenType";
-import { jwtDecode } from "jwt-decode";
 
 const CreateBlogPage = () => {
   const navigate = useNavigate();
@@ -13,11 +11,12 @@ const CreateBlogPage = () => {
   const [username, setUsername] = useState("")
 
   useEffect(()=>{
-      const token = localStorage.getItem("token")
-      if(token){
-          const decoded : DecodedToken= jwtDecode(token)
-          setUsername(decoded.name)
-      } 
+    const user = localStorage.getItem("user");
+
+    if (user) {
+      const parsedUser = JSON.parse(user)
+      setUsername(parsedUser.name);
+    }
   }, [])
 
   const handleCreate = async (note: NoteDTO): Promise<void> => {

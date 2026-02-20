@@ -51,7 +51,7 @@ const UpdateBlogPage = () => {
 
       switch (status) {
         case 403:
-          toast.error("No esta registrado", {   //No esta autorizado
+          toast.error("No esta autorizado", {  
             position: "bottom-left",
             autoClose: 3000,
             theme: "colored",

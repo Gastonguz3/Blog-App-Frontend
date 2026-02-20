@@ -45,14 +45,14 @@ const FormNote = ({
           required
         />
 
-        <div className="flex justify-between">
+        <div className="flex justify-end gap-3">
           <NavLink
             to="/notes"
-            className="bg-red-400 rounded-full p-2 mt-4 font-bold cursor-pointer hover:bg-red-600 hover:text-white"
+            className="bg-red-500 rounded-lg py-2 px-3 mt-4 font-bold cursor-pointer hover:bg-red-600 hover:text-white"
           >
-            Regresar
+            Cancelar
           </NavLink>
-          <button type="submit" className="bg-green-300 rounded-full p-2 mt-4 font-bold cursor-pointer hover:bg-green-500 hover:text-white">
+          <button type="submit" className="bg-green-400 rounded-lg py-2 px-3 mt-4 font-bold cursor-pointer hover:bg-green-500 hover:text-white">
             {greenAction}
           </button>
         </div>
