@@ -10,7 +10,6 @@ const UpdateBlogPage = () => {
   const navigate = useNavigate();
 
   const [initialData, setInitialData] = useState({
-    author: "",
     description: "",
   });
 
@@ -24,7 +23,6 @@ const UpdateBlogPage = () => {
         const response = await getNoteById(id);
 
         setInitialData({
-          author: response.data.author,
           description: response.data.description,
         });
       } catch (error: any) {

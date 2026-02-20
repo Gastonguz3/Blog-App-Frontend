@@ -39,6 +39,7 @@ const FormRegister = () => {
         const data = await registerUser({name, password, email})
 
         localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
 
         toast.success("Registro exitoso!", {
         position: "bottom-left",

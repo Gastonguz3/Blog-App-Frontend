@@ -1,47 +1,92 @@
-//import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-//import type { DecodedToken } from "../../types/DecodedTokenType";
 import { User } from "lucide-react";
-import { updateUser } from "../../services/userService";
+import { deleteUser, updateUser } from "../../services/userService";
 import { toast } from "react-toastify";
 
 const NavbarFeed = () => {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const [username, setUserName] = useState("")
   const [newName, setNewName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
+      const user = localStorage.getItem("user")
+      if(user){
+        const parsedUser = JSON.parse(user)
+        setUserName(parsedUser.name)
+      }
+  }, [])
 
-    if (user) {
-      const parsedUser = JSON.parse(user)
-      setUsername(parsedUser.name);
-    }
-  }, []);
-
-  const handleUpdateName = async () => {
+  const handleUpdateUserName = async () => {
   
     try {
-      const user = localStorage.getItem("user");
-      if(!user) return
-      const parsedUser = JSON.parse(user)
-      await updateUser(parsedUser._id, {newName})
-      //actualizar localStorage
-      const newNameLocalStorage = {...parsedUser, name: newName} 
-      localStorage.setItem("user", JSON.stringify(newNameLocalStorage))
 
-     toast.success("Nombre cambiado con éxito!", {
-              position: "bottom-left",
-              autoClose: 3000,
-              theme: "colored",
-     });
-     setUsername(newName)
-     setShowEditModal(false)
+      await updateUser( {newName})
+
+      const storedUser = localStorage.getItem("user")
+      if(!storedUser) return
+      const parsedUser = JSON.parse(storedUser)
+      localStorage.setItem("user", JSON.stringify({...parsedUser, name: newName})) 
+
+      setUserName(newName)
+      setShowEditModal(false)
+
+      navigate(0)
+
+      toast.success("Nombre cambiado con éxito!", {
+        position: "bottom-left",
+        autoClose: 3000,
+        theme: "colored",
+      });
+
+    } catch (error:any) {
+      const status = error.response?.status;
+
+      switch (status) {
+        case 403:
+          toast.error("No esta autorizado", { //no autorizado
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+        case 404:
+          toast.error("Nota no encontrada", {
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+        default:  //500
+          toast.error("Error del servidor", {
+            position: "bottom-left",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          break;
+      }
+    }
+  }
+
+  const handleDeleteAccount = async() => {
+    try {
+
+      await deleteUser()
+
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      navigate("/")
+      setShowDeleteModal(false)
+
+      toast.success("Su cuenta ha sido eliminada", {
+        position: "bottom-left",
+        autoClose: 3000,
+        theme: "colored",
+      });
     } catch (error:any) {
       const status = error.response?.status;
 
@@ -72,7 +117,8 @@ const NavbarFeed = () => {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
     setIsOpen(false);
     navigate("/");
   };
@@ -102,9 +148,6 @@ const NavbarFeed = () => {
               >
                 Cambiar Nombre
               </button>
-              <button className="block w-full text-left px-4 py-2 hover:bg-gray-400 cursor-pointer">
-                Cambiar Contraseña
-              </button>
               <button
                 onClick={() => {
                   setShowDeleteModal(true);
@@ -130,7 +173,7 @@ const NavbarFeed = () => {
                 <input
                   type="text"
                   placeholder="Nuevo nombre"
-                  value={username}
+                  value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   className="w-full border rounded-lg px-4 py-2 mb-4 focus:outline-none focus:border-purple-500"
                 />
@@ -138,7 +181,7 @@ const NavbarFeed = () => {
                 <button onClick={() => setShowEditModal(false)} className="px-4 py-2 bg-gray-200 rounded-lg cursor-pointer">
                   Cancelar
                 </button>
-                <button onClick={handleUpdateName} className="px-4 py-2 bg-purple-500 text-white rounded-lg cursor-pointer">
+                <button onClick={handleUpdateUserName} className="px-4 py-2 bg-purple-500 text-white rounded-lg cursor-pointer">
                   Guardar
                 </button>
               </div>
@@ -156,7 +199,7 @@ const NavbarFeed = () => {
                       Cancelar
                     </button>
 
-                    <button className="px-4 py-2 bg-red-500 text-white rounded-lg cursor-pointer" onClick={() => {setShowDeleteModal(false)}}>
+                    <button className="px-4 py-2 bg-red-500 text-white rounded-lg cursor-pointer" onClick={handleDeleteAccount}>
                       Eliminar
                     </button>
                   </div>

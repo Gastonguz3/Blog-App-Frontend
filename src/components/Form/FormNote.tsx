@@ -2,12 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { FormNoteType } from "../../types/FormNoteType";
 
-const FormNote = ({
-  title,
-  greenAction,
-  onSubmit,
-  initialData,
-}: FormNoteType) => {
+const FormNote = ({title, greenAction, onSubmit, initialData}: FormNoteType) => {
   const [data, setData] = useState(initialData);
 
   useEffect(() => {

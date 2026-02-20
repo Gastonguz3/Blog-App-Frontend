@@ -1,11 +1,9 @@
 import { Trash2, SquarePen } from "lucide-react";
 import { useState } from "react";
-import { type NoteType } from "../types/NoteType";
-import { toast } from "react-toastify";
-import { deleteNote } from "../services/noteService";
+import { type NoteProps } from "../types/NoteProps";
 import { useNavigate } from "react-router-dom";
 
-const Notes = ({ _id, author, description, createdAt, onDelete }: NoteType) => {
+const Notes = ({_id, author,description, createdAt, onDelete}: NoteProps) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
 
@@ -16,52 +14,11 @@ const Notes = ({ _id, author, description, createdAt, onDelete }: NoteType) => {
     setLiked(!liked);
   };
 
-  const delNote = async (id: number) => {
-    try {
-      await deleteNote(id);
-
-      toast.success("¡Nota eliminada con éxito", {
-        position: "bottom-left",
-        autoClose: 3000,
-        theme: "colored",
-      });
-
-      if (onDelete) onDelete(id);
-    } catch (error: any) {
-      
-      const status = error.response?.status;
-
-      switch (status) {
-        case 403:
-          toast.error("No esta autorizado", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-        case 404:
-          toast.error("Nota no encontrada", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-        default:  //500
-          toast.error("Error del servidor", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-      }
-    }
-  };
-
   return (
     <div className="bg-amber-200 p-4 rounded-tr-lg border border-amber-600">
       <div className="flex justify-between">
         <h2 className="font-serif font-semibold text-xl text-amber-600">
-          {author}
+          {author.name}
         </h2>
         <div className="flex gap-4">
           <SquarePen
@@ -70,7 +27,7 @@ const Notes = ({ _id, author, description, createdAt, onDelete }: NoteType) => {
           />
           <Trash2
             className="text-red-500 cursor-pointer"
-            onClick={() => delNote(_id)}
+            onClick={() =>  {if (onDelete) onDelete(_id)}}
           />
         </div>
       </div>

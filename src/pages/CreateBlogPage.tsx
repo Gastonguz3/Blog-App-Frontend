@@ -3,23 +3,11 @@ import FormNote from "../components/Form/FormNote";
 import { createNote } from "../services/noteService";
 import { toast } from "react-toastify";
 import type { NoteDTO } from "../types/NoteDTO";
-import { useEffect, useState } from "react";
 
 const CreateBlogPage = () => {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("")
-
-  useEffect(()=>{
-    const user = localStorage.getItem("user");
-
-    if (user) {
-      const parsedUser = JSON.parse(user)
-      setUsername(parsedUser.name);
-    }
-  }, [])
-
-  const handleCreate = async (note: NoteDTO): Promise<void> => {
+  const handleCreate = async (note: NoteDTO) => {
     try {
       await createNote(note);
       toast.success("¡Nota creada con éxito", {
@@ -64,7 +52,7 @@ const CreateBlogPage = () => {
           title="NUEVA NOTA"
           greenAction="Publicar"
           onSubmit={handleCreate}
-          initialData={{ author: username, description: "" }}
+          initialData={{ description: "" }}
         />
       </div>
     </div>
