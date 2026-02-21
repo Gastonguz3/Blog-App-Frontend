@@ -38,7 +38,7 @@ const UpdateBlogPage = () => {
 
     try {
       await updateNote(id, note);
-      toast.success("Publicacion actualizada con éxito!", {
+      toast.success("Nota actualizada con éxito!", {
         position: "bottom-left",
         autoClose: 3000,
         theme: "colored",
