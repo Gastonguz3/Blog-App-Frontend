@@ -8,6 +8,7 @@ import NavbarHome from "./components/Navbar/NavbarHome";
 import { ToastContainer } from "react-toastify";
 import RegisterPage from "./pages/RegisterPage";
 import NavbarFeed from "./components/Navbar/NavbarFeed";
+import VerifyPage from "./pages/verifyPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<><NavbarHome/><HomePage /></>} />
         <Route path="/register" element={<><NavbarHome/><RegisterPage /> </>} />
+        <Route path="/verify/:token" element={<><NavbarHome/><VerifyPage /></>} />
         <Route path="/notes" element={<><NavbarFeed/><FeedPage/></>}/>
         <Route path="/createBlog" element={<><NavbarFeed/><CreateBlogPage /></>} />
         <Route path="/updateBlog/:id" element={<><NavbarFeed/><UpdateBlogPage /></>} />

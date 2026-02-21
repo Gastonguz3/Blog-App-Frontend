@@ -32,7 +32,8 @@ const FormLogin = () => {
 
       navigate("/notes");
     } catch (error: any) {
-      toast.error("Error al iniciar sesion!", {
+      const message = error.response?.data?.message || "Error inesperado";
+      toast.error(message, {
         position: "bottom-left",
         autoClose: 3000,
         theme: "colored",

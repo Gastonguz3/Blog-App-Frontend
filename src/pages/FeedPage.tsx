@@ -36,31 +36,12 @@ const FeedPage = () => {
     } catch (error: any) {
       //si falla hago rollback
       setNotes(previosNotes);
-      const status = error.response?.status;
-
-      switch (status) {
-        case 403:
-          toast.error("No esta autorizado", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-        case 404:
-          toast.error("Nota no encontrada", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-        default: //500
-          toast.error("Error del servidor", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-      }
+      const message = error.response?.data?.message || "Error inesperado";
+      toast.error(message, {
+        position: "bottom-left",
+        autoClose: 3000,
+        theme: "colored",
+      });
     }
   };
 

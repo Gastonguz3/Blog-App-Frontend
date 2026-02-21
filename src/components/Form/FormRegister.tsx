@@ -25,36 +25,28 @@ const FormRegister = () => {
         return;
       }
 
-      if (password.length < 6) {
-        toast.warning("La contraseña debe tener minimo 6 caracteres", {
+      try {
+        
+        await registerUser({name, password, email})
+
+        /*localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));*/
+
+        toast.success("Revisa tu email para verificar tu cuenta", {
           position: "top-center",
+          autoClose: 5000,
+          theme: "colored",
+        });
+
+        navigate("/");
+        
+      } catch (error:any) {
+        const message = error.response?.data?.message || "Error inesperado";
+        toast.error(message, {
+          position: "bottom-left",
           autoClose: 3000,
           theme: "colored",
         });
-        return;
-      }
-
-      try {
-        
-        const data = await registerUser({name, password, email})
-
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-
-        toast.success("Registro exitoso!", {
-        position: "bottom-left",
-        autoClose: 3000,
-        theme: "colored",
-        });
-
-        navigate("/notes");
-        
-      } catch (error:any) {
-        toast.error("Error al registrar el usuario!", {
-          position: "bottom-left",
-          autoClose: 3000,
-          theme: "colored"
-        })
       }
     }
 

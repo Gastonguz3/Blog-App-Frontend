@@ -44,31 +44,12 @@ const NavbarFeed = () => {
       });
 
     } catch (error:any) {
-      const status = error.response?.status;
-
-      switch (status) {
-        case 403:
-          toast.error("No esta autorizado", { //no autorizado
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-        case 404:
-          toast.error("Nota no encontrada", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-        default:  //500
-          toast.error("Error del servidor", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-      }
+      const message = error.response?.data?.message || "Error inesperado";
+      toast.error(message, {
+        position: "bottom-left",
+        autoClose: 3000,
+        theme: "colored",
+      });
     }
   }
 
@@ -88,31 +69,12 @@ const NavbarFeed = () => {
         theme: "colored",
       });
     } catch (error:any) {
-      const status = error.response?.status;
-
-      switch (status) {
-        case 403:
-          toast.error("No esta autorizado", { //no autorizado
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-        case 404:
-          toast.error("Nota no encontrada", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-        default:  //500
-          toast.error("Error del servidor", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-      }
+      const message = error.response?.data?.message || "Error inesperado";
+      toast.error(message, {
+        position: "bottom-left",
+        autoClose: 3000,
+        theme: "colored",
+      });
     }
   }
 

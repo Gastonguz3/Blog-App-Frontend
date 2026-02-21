@@ -17,31 +17,12 @@ const CreateBlogPage = () => {
       });
       navigate("/notes");
     } catch (error: any) {
-      const status = error.response?.status;
-
-      switch (status) {
-        case 400:
-          toast.warning("Completar todos los campos", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-        case 403:
-          toast.error("No esta registrado", { //No autorizado
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-        default:  //500
-          toast.error("Error del servidor", {
-            position: "bottom-left",
-            autoClose: 3000,
-            theme: "colored",
-          });
-          break;
-      }
+      const message = error.response?.data?.message || "Error inesperado";
+      toast.error(message, {
+        position: "bottom-left",
+        autoClose: 3000,
+        theme: "colored",
+      });
     }
   };
 
