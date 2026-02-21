@@ -1,73 +1,66 @@
-# React + TypeScript + Vite
+# Blog App - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicacion web desarrollada con React + TypeScript + Tailwind CSS  que permite a los usuarios registrarse, verificar su email, iniciar sesion y gestionar sus notas.
 
-Currently, two official plugins are available:
+La pagina fue desplegada en Github Pages y consume una API REST desarrollada en Node.js + Express
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Para ver la **pagina** [ingrese aca](https://gastonguz3.github.io/Blog-App-Frontend/)
 
-## React Compiler
+Para ver el **codigo del backend** [ingrese aca](https://github.com/Gastonguz3/Blog-App-Backend)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tecnologias Usadas
+* React + Vite
+* TypeScipt
+* Tailwind CSS
+* React Router DOM
+* Axios
+* React toastify
+* Lucide React
 
-## Expanding the ESLint configuration
+## Arquitectura
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Funcionamiento
+1. El usuario se registra (en caso de no querer registrarse puede hacer click en **Ingresar sin iniciar sesion** pero no va a poder crear notas)
+2. Verifica su cuenta desde su email
+3. Inicia sesion (el backend devuelve un JWT)
+4. El usuario registrado puede crear, editarl y borrar notas siempre que sean **suyas**
+5. Haciendo click en el icono arriba a la derecha el usuario registrado puede cambiar su nombre de usuario, eliminar su cuenta o cerrar sesion
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Instalacion
+1. Clonar el repositorio 
+```
+git clone https://github.com/Gastonguz3/Blog-App-Frontend.git
+cd Blog-App-Frontend
+```
+2. Instalar dependencias
+```
+npm install
+```
+3. Configurar variables de entorno: Crear un archivo .env en la raiz
+```
+VITE_API_URL=htrp://localhost:3000
+```
+4. Ejecutar el proyecto
+```
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Conexion con el Backend
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+En *src/config/**api.ts*** se encuentra la **API_URL** donde se conecta el frontend con el backend, VITE_API_URL se encuentra en el archivo .env:
 ```
+export const API_URL = import.meta.env.VITE_API_URL;
+```
+Este Frontend consume la API disponible en el siguiente repositorio: [ingrese aca](https://github.com/Gastonguz3/Blog-App-Backend)
+
+
+## Vista de la pagina
+### Pantalla Principal 
+![](./public/login.png)
+
+### Pantalla para gestionar notas
+![](./public/feed.png)
+
+#### Autor: Gaston Guzman [linKedIn](https://www.linkedin.com/in/gaston-guzman-192730352/).
+
+

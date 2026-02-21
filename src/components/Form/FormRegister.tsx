@@ -29,9 +29,6 @@ const FormRegister = () => {
         
         await registerUser({name, password, email})
 
-        /*localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));*/
-
         toast.success("Revisa tu email para verificar tu cuenta", {
           position: "top-center",
           autoClose: 5000,

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 export interface AuthResponse {
     token: string,
@@ -9,20 +10,20 @@ export interface AuthResponse {
     }
 } 
 
-const API_URL = "http://localhost:3000/auth";
+const API_URL_AUTH = `${API_URL}/auth`;
 
 export const registerUser = async (data: { name: string; email: string; password: string}) : Promise<AuthResponse> => {
-  const response = await axios.post(`${API_URL}/register`, data);
+  const response = await axios.post(`${API_URL_AUTH}/register`, data);
   return response.data;
 };
 
 export const loginUser = async (data: { email: string; password: string }) : Promise<AuthResponse> => {
-  const response = await axios.post(`${API_URL}/login`, data);
+  const response = await axios.post(`${API_URL_AUTH}/login`, data);
   return response.data;
   
 };
 
 export const verifyUser = async (token: string) => {
-  const response = await axios.get(`${API_URL}/verify/${token}`);
+  const response = await axios.get(`${API_URL_AUTH}/verify/${token}`);
   return response.data;
 }
