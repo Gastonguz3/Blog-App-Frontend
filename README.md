@@ -4,6 +4,8 @@ Aplicacion web desarrollada con React + TypeScript + Tailwind CSS  que permite a
 
 La pagina fue desplegada en Github Pages y consume una API REST desarrollada en Node.js + Express
 
+**Aclaracion**: En este proyecto la verificacion por email esta simulada
+
 Para ver la **pagina** [ingrese aca](https://gastonguz3.github.io/Blog-App-Frontend/)
 
 Para ver el **codigo del backend** [ingrese aca](https://github.com/Gastonguz3/Blog-App-Backend)

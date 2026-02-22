@@ -29,7 +29,7 @@ const FormRegister = () => {
         
         await registerUser({name, password, email})
 
-        toast.success("Revisa tu email para verificar tu cuenta", {
+        toast.success(`Email de verificacion simulado para ${email}`, {
           position: "top-center",
           autoClose: 5000,
           theme: "colored",
