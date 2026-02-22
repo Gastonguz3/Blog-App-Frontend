@@ -23,7 +23,7 @@ Para ver el **codigo del backend** [ingrese aca](https://github.com/Gastonguz3/B
 
 ### Funcionamiento
 1. El usuario se registra (en caso de no querer registrarse puede hacer click en **Ingresar sin iniciar sesion** pero no va a poder crear notas)
-2. Verifica su cuenta desde su email
+2. Verifica su cuenta desde su email: este paso se **simula**, el codigo esta hecho para realizar esta accion con Resend pero lo omito porque es necesario un dominio propio y servicio DNS 
 3. Inicia sesion (el backend devuelve un JWT)
 4. El usuario registrado puede crear, editarl y borrar notas siempre que sean **suyas**
 5. Haciendo click en el icono arriba a la derecha el usuario registrado puede cambiar su nombre de usuario, eliminar su cuenta o cerrar sesion
